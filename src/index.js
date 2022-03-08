@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from 'views/Root';
-import { worker } from 'mocks/browser';
+import Root from './views/Root';
+import { worker } from './mocks/browser';
+import 'assets/globals.css';
 
 worker.start().then(() => {
   ReactDOM.render(

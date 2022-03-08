@@ -1,3 +1,3 @@
-import { auth } from 'mocks/handlers/auth';
+import { auth } from './auth';
 
 export const handlers = [...auth];
