@@ -41,7 +41,7 @@ const Login: FC = () => {
           <Input ref={loginRef} name="login" label="Email" type="email" />
           <Input name="password" label="Password" type="password" />
           <Button type="submit" variant="contained" color="primary">
-            Submit
+            Sign in
           </Button>
         </form>
       </FormProvider>
