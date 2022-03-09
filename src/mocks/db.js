@@ -5,6 +5,8 @@ export const db = factory({
     id: primaryKey(() => '1'),
     name: () => 'John Doe',
     login: () => 'john@doe.com',
-    password: () => '1234',
+    password: () => 'test123',
   },
 });
+
+db.user.create();

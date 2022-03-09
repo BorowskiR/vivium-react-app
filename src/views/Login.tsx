@@ -1,18 +1,19 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Grid } from '@material-ui/core';
 import Input from 'components/atoms/Input/Input';
 import { SchemaOf, string, object } from 'yup';
 import useStyles from './Login.styles';
+import { useAuth } from 'hooks/useAuth';
 
 interface IFormInputs {
-  email: string;
+  login: string;
   password: string;
 }
 
 const formSchema: SchemaOf<IFormInputs> = object({
-  email: string().email().required(),
+  login: string().email().required(),
   password: string().min(4).max(20).required(),
 });
 
@@ -22,26 +23,23 @@ const Login: FC = () => {
     resolver: yupResolver(formSchema),
   });
   const loginRef = useRef<HTMLInputElement>(null);
+  const auth = useAuth();
+
   useEffect(() => {
     if (loginRef.current) {
       loginRef.current.focus();
-      console.log('??', loginRef.current);
     }
   }, [loginRef]);
-
-  const formSubmitHandler: SubmitHandler<IFormInputs> = async ({ email, password }: IFormInputs) => {
-    console.log(email, password);
-  };
 
   return (
     <Grid container className={classes.wrapper}>
       <FormProvider {...methods}>
         <form
           style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}
-          onSubmit={methods.handleSubmit(formSubmitHandler)}
+          onSubmit={methods.handleSubmit(auth.signIn)}
         >
-          <Input ref={loginRef as React.ForwardedRef<HTMLInputElement>} name="email" label="Email" />
-          <Input name="password" label="Password" />
+          <Input ref={loginRef} name="login" label="Email" type="email" />
+          <Input name="password" label="Password" type="password" />
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>
@@ -52,35 +50,3 @@ const Login: FC = () => {
 };
 
 export default Login;
-
-{
-  /* <Controller
-  name="email"
-  control={control}
-  render={({ field }) => (
-    <TextField
-      {...field}
-      inputRef={loginRef}
-      label="Email"
-      variant="outlined"
-      error={!!errors.email}
-      helperText={errors.email ? errors.email?.message : ''}
-    />
-  )}
-/>
-<br />
-<Controller
-  name="password"
-  control={control}
-  render={({ field }) => (
-    <TextField
-      {...field}
-      type="password"
-      label="Password"
-      variant="outlined"
-      error={!!errors.password}
-      helperText={errors.password ? errors.password?.message : ''}
-    />
-  )}
-/> */
-}

@@ -5,10 +5,10 @@ import { TextField } from '@material-ui/core';
 interface InputProps {
   name: string;
   label: string;
+  type?: string;
 }
 
-const Input = React.forwardRef(({ name, label }: InputProps, ref: React.Ref<HTMLInputElement>) => {
-  console.log(ref);
+const Input = React.forwardRef(({ name, label, type = 'text' }: InputProps, ref: React.Ref<HTMLInputElement>) => {
   const {
     register,
     formState: { errors },
@@ -17,6 +17,7 @@ const Input = React.forwardRef(({ name, label }: InputProps, ref: React.Ref<HTML
   return (
     <TextField
       {...register(name)}
+      type={type}
       inputRef={ref}
       label={label}
       variant="outlined"
