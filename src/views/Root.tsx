@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login from './Login.tsx';
+import Login from './Login';
 import Dashboard from './Dashboard';
 import MissingPage from './404';
 import { useAuth } from 'hooks/useAuth';
