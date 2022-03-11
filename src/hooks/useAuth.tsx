@@ -15,7 +15,7 @@ interface ILoginData {
 
 type ContextType = {
   user: IUser | null;
-  signIn: (datA: ILoginData) => Promise<void>;
+  signIn: (data: ILoginData) => Promise<void>;
   signOut: () => void;
 };
 
