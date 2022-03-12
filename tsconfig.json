@@ -34,6 +34,7 @@
     "next-env.d.ts",
     "pages/**/*",
     "src/**/*",
+    "types",
     "styles/**/*" // *** The files TypeScript should type check ***
   ],
   "exclude": ["node_modules", "coverage"] // *** The files to not type check ***

@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { useAuth } from 'hooks/useAuth';
-import { Button } from '@material-ui/core';
 import useFetch from 'hooks/useFetch';
 import { Link } from 'react-router-dom';
+import SideBar from 'components/molecules/SideBar/Sidebar';
 
 interface Beers {
   userId: number;
@@ -18,7 +17,6 @@ const url = `https://api.punkapi.com/v2/beers/`;
 
 const Dashboard: FC = () => {
   const { data, error } = useFetch<Beers[]>(url);
-  const auth = useAuth();
 
   if (error) return <p>There is an error.</p>;
   if (!data) return <p>Loading...</p>;
@@ -26,7 +24,7 @@ const Dashboard: FC = () => {
 
   return (
     <div>
-      <Button onClick={auth.signOut}>Logout</Button>
+      <SideBar />
       <ul>
         {data.map((beer) => {
           return (
