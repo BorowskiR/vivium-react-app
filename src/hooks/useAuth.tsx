@@ -36,7 +36,6 @@ export const AuthProvider: FC<React.ReactNode> = ({ children }) => {
             },
           });
           setUser(response.data);
-          history('/');
         } catch (e) {
           console.log(e);
         }
@@ -44,7 +43,8 @@ export const AuthProvider: FC<React.ReactNode> = ({ children }) => {
     } else {
       history('/sign-in');
     }
-  }, [history]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const signIn = async ({ login, password }: ILoginData): Promise<void> => {
     try {

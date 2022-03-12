@@ -3,27 +3,34 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import MissingPage from './404';
+import BeerDetails from './BeerDetails';
 import { useAuth } from 'hooks/useAuth';
 
 const AuthenticatedApp = () => {
   return (
-    <Routes>
-      {/* protected route */}
-      <Route path="/" element={<Dashboard />} />
-      <Route path="*" element={<MissingPage />} />
-    </Routes>
+    <>
+      <Routes>
+        {/* protected route */}
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/beers/:id" element={<BeerDetails />} />
+
+        {/* <Route path="*" element={<MissingPage />} /> */}
+      </Routes>
+    </>
   );
 };
 
 const UnauthenticatedApp = () => {
   return (
-    <Routes>
-      {/* public route */}
-      <Route path="sign-in" element={<Login />} />
+    <>
+      <Routes>
+        {/* public route */}
+        <Route path="sign-in" element={<Login />} />
 
-      {/* catch all */}
-      <Route path="*" element={<MissingPage />} />
-    </Routes>
+        {/* catch all */}
+        <Route path="*" element={<MissingPage />} />
+      </Routes>
+    </>
   );
 };
 

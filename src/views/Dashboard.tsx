@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 import { useAuth } from 'hooks/useAuth';
 import { Button } from '@material-ui/core';
 import useFetch from 'hooks/useFetch';
+import { Link } from 'react-router-dom';
 
-interface Beer {
+interface Beers {
   userId: number;
   id: number;
   name: string;
@@ -13,16 +14,15 @@ interface Beer {
   abv: number;
 }
 
-// const url = `http://jsonplaceholder.typicode.com/posts`;
 const url = `https://api.punkapi.com/v2/beers/`;
 
 const Dashboard: FC = () => {
-  const { data, error } = useFetch<Beer[]>(url);
+  const { data, error } = useFetch<Beers[]>(url);
   const auth = useAuth();
 
   if (error) return <p>There is an error.</p>;
   if (!data) return <p>Loading...</p>;
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>
@@ -30,13 +30,13 @@ const Dashboard: FC = () => {
       <ul>
         {data.map((beer) => {
           return (
-            <li>
+            <li key={beer.id}>
               <img style={{ objectFit: 'contain' }} width="100px" height="100px" src={beer.image_url} alt="" />
               <h4>{beer.name}</h4>
               <p>{beer.description}</p>
               <div>first brewed {beer.first_brewed}</div>
               <div>{beer.abv}% alkohol volume</div>
-              <Button>details</Button>
+              <Link to={`/beers/${beer.id}`}>details</Link>
             </li>
           );
         })}
