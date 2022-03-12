@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login from './Login';
-import Dashboard from './Dashboard';
+import Login from './Login/Login';
+import Dashboard from './Dashboard/Dashboard';
 import MissingPage from './404';
 import BeerDetails from './BeerDetails';
 import { useAuth } from 'hooks/useAuth';

@@ -1,6 +1,6 @@
 import React from 'react';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { useStyles } from './Sidebar.styles';
+import { useStyles } from './styles';
 import { useAuth } from 'hooks/useAuth';
 import Logo from 'assets/images/beers.png';
 

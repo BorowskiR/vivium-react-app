@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Grid } from '@material-ui/core';
 import Input from 'components/atoms/Input/Input';
 import { SchemaOf, string, object } from 'yup';
-import useStyles from './Login.styles';
+import useStyles from './styles';
 import { useAuth } from 'hooks/useAuth';
 
 interface IFormInputs {
