@@ -1,9 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import useFetch from 'hooks/useFetch';
 import { Link } from 'react-router-dom';
 import SideBar from 'components/molecules/SideBar/Sidebar';
 import { Grid, Container, Paper } from '@material-ui/core';
 import { useStyles } from './styles';
+import SearchBar from 'components/organisms/SearchBar/SearchBar';
+import { BeersContext } from 'providers/BeersProvider';
+import Select from 'components/organisms/Select/Select';
 
 interface Beers {
   id: number;
@@ -17,20 +20,30 @@ interface Beers {
 const url = `https://api.punkapi.com/v2/beers/`;
 
 const Dashboard: FC = () => {
-  const { data, error } = useFetch<Beers[]>(url);
+  const { error, data } = useFetch<Beers[]>(url);
+  const { state } = useContext(BeersContext);
   const classes = useStyles();
+
+  // useEffect(() => {
+  //   if (beers) {
+  //     setState(beers);
+  //   }
+  // }, [beers]);
+
+  console.log(state);
 
   if (error) return <p>There is an error.</p>;
   if (!data) return <p>Loading...</p>;
-  console.log(data);
 
   return (
     <div>
       <SideBar />
       <Container>
         <Paper elevation={3} className={classes.paper}>
+          <SearchBar />
+          <Select />
           <ul>
-            {data.map((beer) => {
+            {state.beers?.map((beer) => {
               return (
                 <Grid key={beer.id}>
                   <img style={{ objectFit: 'contain' }} width="100px" height="100px" src={beer.image_url} alt="" />

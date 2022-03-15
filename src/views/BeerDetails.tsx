@@ -17,7 +17,6 @@ const BeerDetails = () => {
   const url = `https://api.punkapi.com/v2/beers/${id}`;
 
   const { data, error } = useFetch<Beer>(url);
-
   if (error) return <p>There is an error.</p>;
   if (!data) return <p>Loading...</p>;
 

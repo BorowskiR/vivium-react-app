@@ -7,6 +7,7 @@ import { AuthProvider } from 'hooks/useAuth';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from 'assets/styles/theme';
+import BeersProvider from 'providers/BeersProvider';
 
 worker.start().then(() => {
   ReactDOM.render(
@@ -14,7 +15,9 @@ worker.start().then(() => {
       <Router>
         <ThemeProvider theme={theme}>
           <AuthProvider>
-            <Root />
+            <BeersProvider>
+              <Root />
+            </BeersProvider>
           </AuthProvider>
         </ThemeProvider>
       </Router>

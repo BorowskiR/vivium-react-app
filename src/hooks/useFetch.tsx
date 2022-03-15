@@ -1,4 +1,6 @@
 import { useEffect, useReducer, useRef } from 'react';
+// import debounce from 'lodash.debounce';
+// import axios from 'axios';
 
 interface State<T> {
   data?: T;
@@ -9,7 +11,7 @@ type Cache<T> = { [url: string]: T };
 
 type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T } | { type: 'error'; payload: Error };
 
-function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
+function useFetch<T = unknown>(url?: string, options?: RequestInit) {
   const cache = useRef<Cache<T>>({});
 
   // Used to prevent state update if the component is unmounted
@@ -34,7 +36,6 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
   };
 
   const [state, dispatch] = useReducer(fetchReducer, initialState);
-
   useEffect(() => {
     if (!url) return;
 
@@ -73,7 +74,22 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit): State<T> {
       cancelRequest.current = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // wywalilem url z dependencji
   }, [url]);
+
+  // const findBeers = async (inputValue: string) => {
+  //   try {
+  //     const response = await fetch(`https://api.punkapi.com/v2/beers?beer_name=${inputValue}`);
+  //     if (!response.ok) {
+  //       throw new Error(response.statusText);
+  //     }
+  //     const data = (await response.json()) as T;
+  //     dispatch({ type: 'fetched', payload: data });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   return state;
 }
