@@ -59,12 +59,16 @@ const BeersProvider: FC<React.ReactNode> = ({ children }) => {
     dispatch({ type: 'filter_beers_byName', payload: text });
   };
 
+  const filterBeersByAlcohol = () => {
+    dispatch({ type: 'filter_beers_byAlcohol', payload: })
+  }
+
   // Clear filter
   const clearFilter = () => {
     dispatch({ type: 'initial', payload: data });
   };
 
-  return <BeersContext.Provider value={{ filterBeersByName, clearFilter, state }}>{children}</BeersContext.Provider>;
+  return <BeersContext.Provider value={{ filterBeersByName, filterBeersByAlcohol, clearFilter, state }}>{children}</BeersContext.Provider>;
 };
 
 export default BeersProvider;
