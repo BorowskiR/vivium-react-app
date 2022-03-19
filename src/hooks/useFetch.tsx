@@ -2,27 +2,35 @@ import { useEffect, useReducer, useRef } from 'react';
 // import debounce from 'lodash.debounce';
 // import axios from 'axios';
 
-interface State<T> {
-  data?: T;
+export interface IBeer {
+  id: number;
+  name: string;
+  description: string;
+  first_brewed: Date;
+  abv: number;
+}
+
+interface State {
+  data?: IBeer[];
   error?: Error;
 }
 
-type Cache<T> = { [url: string]: T };
+type Cache = { [url: string]: Object };
 
-type Action<T> = { type: 'loading' } | { type: 'fetched'; payload: T } | { type: 'error'; payload: Error };
+type Actions = { type: 'loading' } | { type: 'fetched'; payload: IBeer[] | any } | { type: 'error'; payload: Error };
 
-function useFetch<T = unknown>(url?: string, options?: RequestInit) {
-  const cache = useRef<Cache<T>>({});
+function useFetch(url?: string, options?: RequestInit): State {
+  const cache = useRef<Cache>({});
 
   // Used to prevent state update if the component is unmounted
   const cancelRequest = useRef<boolean>(false);
 
-  const initialState: State<T> = {
+  const initialState: State = {
     error: undefined,
     data: undefined,
   };
 
-  const fetchReducer = (state: State<T>, action: Action<T>): State<T> => {
+  const fetchReducer = (state: State, action: Actions): State => {
     switch (action.type) {
       case 'loading':
         return { ...initialState };
@@ -54,7 +62,7 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit) {
           throw new Error(response.statusText);
         }
 
-        const data = (await response.json()) as T;
+        const data = (await response.json()) as IBeer;
         cache.current[url] = data;
         if (cancelRequest.current) return;
 
@@ -74,22 +82,7 @@ function useFetch<T = unknown>(url?: string, options?: RequestInit) {
       cancelRequest.current = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
-    // wywalilem url z dependencji
   }, [url]);
-
-  // const findBeers = async (inputValue: string) => {
-  //   try {
-  //     const response = await fetch(`https://api.punkapi.com/v2/beers?beer_name=${inputValue}`);
-  //     if (!response.ok) {
-  //       throw new Error(response.statusText);
-  //     }
-  //     const data = (await response.json()) as T;
-  //     dispatch({ type: 'fetched', payload: data });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   return state;
 }

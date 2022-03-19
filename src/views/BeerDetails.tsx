@@ -4,11 +4,6 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useNavigate, useParams } from 'react-router-dom';
 import useFetch from 'hooks/useFetch';
 
-interface Beer {
-  name: string;
-  description: string;
-}
-
 const BeerDetails = () => {
   const history = useNavigate();
   const params = useParams();
@@ -16,7 +11,7 @@ const BeerDetails = () => {
 
   const url = `https://api.punkapi.com/v2/beers/${id}`;
 
-  const { data, error } = useFetch<Beer>(url);
+  const { data, error } = useFetch(url);
   if (error) return <p>There is an error.</p>;
   if (!data) return <p>Loading...</p>;
 

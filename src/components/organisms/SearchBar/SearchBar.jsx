@@ -1,56 +1,40 @@
-import React, { useState, useContext } from 'react';
-import { useCombobox } from 'downshift';
-import debounce from 'lodash.debounce';
-import axios from 'axios';
-import { Input, FormLabel, List, ListItem, ListItemText } from '@material-ui/core';
+import React, { useState, useContext, useEffect } from 'react';
+import { Input, FormLabel } from '@material-ui/core';
 import { useStyles, comboboxStyles } from './styles';
 import { BeersContext } from 'providers/BeersProvider';
 
 const SearchBar = () => {
-  const [matchingBeers, setMatchingBeers] = useState([]);
+  const [inputValue, setInputValue] = useState('');
   const classes = useStyles();
-  const { filterBeersByName, clearFilter } = useContext(BeersContext);
+  const { filterByName, clearFilter } = useContext(BeersContext);
 
-  const getMatchingBeers = debounce(async ({ inputValue }) => {
-    try {
-      const { data } = await axios.get(`https://api.punkapi.com/v2/beers?beer_name=${inputValue}`);
-      const filteredBeers = data.filter(({ name }) => name);
-      // filterBeersByName(inputValue);
-      setMatchingBeers(filteredBeers);
-      return data;
-    } catch (e) {
+  useEffect(() => {
+    if (inputValue !== '') {
+      filterByName(inputValue);
+    } else {
       clearFilter();
     }
-  }, 500);
 
-  const { isOpen, getLabelProps, getMenuProps, highlightedIndex, getItemProps, getInputProps, getComboboxProps } = useCombobox({
-    items: matchingBeers,
-    onInputValueChange: getMatchingBeers,
-  });
+    // (async () => {
+    //   try {
+    //     const { data } = await axios.get(`https://api.punkapi.com/v2/beers?beer_name=${inputValue}`);
+    //     const filteredBeers = data.filter(({ name }) => name);
+    //     filterByName(inputValue);
+
+    //     console.log('przefiltrowana', filteredBeers);
+    //     return data;
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // })();
+  }, [inputValue]);
+
   return (
     <div>
-      <FormLabel {...getLabelProps()}>Choose beer:</FormLabel>
-      <div style={comboboxStyles} {...getComboboxProps()}>
-        <Input placeholder="Beers" {...getInputProps()} />
+      <FormLabel>Choose beer:</FormLabel>
+      <div style={comboboxStyles}>
+        <Input placeholder="Beers" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
       </div>
-      <List className={classes.root} {...getMenuProps()}>
-        {isOpen &&
-          matchingBeers &&
-          matchingBeers.map((item, index) => {
-            return (
-              <ListItem
-                key={item.id}
-                className={index === highlightedIndex ? classes.highlighted : undefined}
-                {...getItemProps({
-                  item,
-                  index,
-                })}
-              >
-                <ListItemText primary={item.name} />
-              </ListItem>
-            );
-          })}
-      </List>
     </div>
   );
 };
