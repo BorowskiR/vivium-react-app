@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Input, FormLabel } from '@material-ui/core';
-import { useStyles, comboboxStyles } from './styles';
+import { TextField } from '@material-ui/core';
+// import { useStyles } from './styles';
 import { BeersContext } from 'providers/BeersProvider';
+import FormControl from '@mui/material/FormControl';
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState('');
-  const classes = useStyles();
+  // const classes = useStyles();
   const { filterByName, clearFilter } = useContext(BeersContext);
 
   useEffect(() => {
@@ -17,12 +18,9 @@ const SearchBar = () => {
   }, [inputValue]);
 
   return (
-    <div className={classes.wrapper}>
-      <FormLabel>Choose beer:</FormLabel>
-      <div style={comboboxStyles}>
-        <Input placeholder="Beers" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-      </div>
-    </div>
+    <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+      <TextField label="Type beer name" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+    </FormControl>
   );
 };
 

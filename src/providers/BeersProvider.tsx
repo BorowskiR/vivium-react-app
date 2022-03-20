@@ -22,14 +22,14 @@ type Actions =
 type State = {
   beers: IBeer[];
   filtered: IBeer[];
-  error: null | string;
+  filterError: null | string;
 };
 
 type ContextType = {
   state: {
     beers: IBeer[];
     filtered: IBeer[];
-    error: null | string;
+    filterError: null | string;
   };
   filterByName: (text: string) => void;
   clearFilter: () => void;
@@ -41,7 +41,7 @@ export const BeersContext = React.createContext<ContextType>({
   state: {
     beers: [],
     filtered: [],
-    error: null,
+    filterError: null,
   },
   filterByName: () => {},
   filterByPower: () => {},
@@ -57,34 +57,34 @@ const BeersReducer = (state: State, action: Actions): State => {
       return {
         ...state,
         beers: action.payload,
-        filtered: action.payload,
+        filtered: [],
       };
     case BeersActions.FILTER_BY_NAME:
-      console.log(action.type);
       return {
         ...state,
         filtered: state.beers.filter((beer: IBeer) => {
           const regex = new RegExp(`${action.payload}`, 'ig');
           return beer.name.match(regex);
         }),
-        error: state.filtered.length ? null : 'No beer found',
+        filterError: state.filtered.length ? null : 'No beer found',
       };
     case BeersActions.FILTER_BY_POWER:
       return {
         ...state,
         beers: action.payload,
-        error: null,
+        filterError: null,
       };
     case BeersActions.CLEAR_FILTER:
       return {
         ...state,
         filtered: [],
+        filterError: null,
       };
     case BeersActions.FILTER_BY_BREWED_DATE: {
       return {
         ...state,
         beers: action.payload,
-        error: action.payload.length ? '' : 'No beer found',
+        filterError: action.payload.length ? null : 'No beer found',
       };
     }
     default:
@@ -95,7 +95,7 @@ const BeersReducer = (state: State, action: Actions): State => {
 const initialState: State = {
   beers: [],
   filtered: [],
-  error: '',
+  filterError: null,
 };
 
 const BeersProvider: FC = ({ children }) => {

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useStyles } from './styles';
 
 const defaultErrorMessage = 'Something went wrong. Please try again, or contact our support.';
 
-const ErrorMessage = ({ message = defaultErrorMessage }) => {
+const ErrorMessage: FC<{ message: string }> = ({ message = defaultErrorMessage }) => {
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>

@@ -9,7 +9,7 @@ import { BeersContext } from 'providers/BeersProvider';
 const SelectByPower = () => {
   const [selectedOption, setSelectedOption] = useState<Number | string>('');
   const { filterByPower, clearFilter } = useContext(BeersContext);
-  console.log(selectedOption);
+
   useEffect(() => {
     if (!selectedOption) {
       clearFilter();
@@ -49,19 +49,17 @@ const SelectByPower = () => {
   }, [selectedOption]);
 
   return (
-    <div>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="select">Select by power</InputLabel>
-        <Select id="select" value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
-          <MenuItem value={''}>
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={1}>light (0% - 4%)</MenuItem>
-          <MenuItem value={2}>strong (4% - 9%)</MenuItem>
-          <MenuItem value={3}>very strong (10%+)</MenuItem>
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+      <InputLabel id="select">Select by power</InputLabel>
+      <Select id="select" value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+        <MenuItem value={''}>
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={1}>light (0% - 4%)</MenuItem>
+        <MenuItem value={2}>strong (4% - 9%)</MenuItem>
+        <MenuItem value={3}>very strong (10%+)</MenuItem>
+      </Select>
+    </FormControl>
   );
 };
 
