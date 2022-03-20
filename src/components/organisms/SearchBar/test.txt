@@ -1,0 +1,61 @@
+import React, { useState, useEffect } from 'react';
+// import { useCombobox } from 'downshift';
+import debounce from 'lodash.debounce';
+import axios from 'axios';
+import { Input, FormLabel, List, ListItem, ListItemText } from '@material-ui/core';
+import { useStyles } from './styles';
+
+const findBeers = async (searchPhrase: string) => {
+  try {
+    const { data } = await axios.post(`https://api.punkapi.com/v2/beers?beer_name=${searchPhrase}`);
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+interface Beer {
+  name: string;
+  id: string;
+  description: string;
+}
+
+const SearchBar = ({ data }: any) => {
+  const [searchPhrase, setSearchPhrase] = useState('');
+  const [matchingBeers, setMatchingBeers] = useState(data);
+  const classes = useStyles();
+
+  const getMatchingBeers = debounce(async (searchPhrase) => {
+    const response = await findBeers(searchPhrase);
+    const filteredBeers = data.filter((beer: Beer) => beer.name.toLowerCase().includes(searchPhrase.toLowerCase()));
+    setMatchingBeers(filteredBeers);
+  }, 500);
+
+  useEffect(() => {
+    if (!searchPhrase) return;
+    getMatchingBeers(searchPhrase);
+  }, [searchPhrase]);
+
+  return (
+    <div>
+      <FormLabel>Choose beer:</FormLabel>
+      <div>
+        <Input placeholder="Beers" onChange={(e) => setSearchPhrase(e.target.value)} value={searchPhrase} name="Search" id="Search" />
+      </div>
+      {searchPhrase && matchingBeers.length ? (
+        <List className={classes.root}>
+          {matchingBeers?.map((item: Beer) => {
+            return (
+              <ListItem key={item.id}>
+                <ListItemText primary={item.name} />
+              </ListItem>
+            );
+          })}
+        </List>
+      ) : null}
+    </div>
+  );
+};
+
+export default SearchBar;

@@ -1,7 +1,7 @@
 import React, { FC, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { useError } from 'hooks/useError';
 interface IUser {
   id: string;
   name: string;
@@ -24,6 +24,7 @@ const AuthContext = React.createContext<ContextType | null>(null);
 export const AuthProvider: FC<React.ReactNode> = ({ children }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const history = useNavigate();
+  const { dispatchError } = useError();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -36,9 +37,7 @@ export const AuthProvider: FC<React.ReactNode> = ({ children }) => {
             },
           });
           setUser(response.data);
-        } catch (e) {
-          console.log(e);
-        }
+        } catch (e) {}
       })();
     } else {
       history('/sign-in');
@@ -56,7 +55,7 @@ export const AuthProvider: FC<React.ReactNode> = ({ children }) => {
       localStorage.setItem('token', response.data.token);
       history('/');
     } catch (e) {
-      console.log(e);
+      dispatchError('Invalid email or password');
     }
   };
 

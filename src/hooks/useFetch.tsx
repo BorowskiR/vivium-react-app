@@ -1,25 +1,16 @@
 import { useEffect, useReducer, useRef } from 'react';
-// import debounce from 'lodash.debounce';
-// import axios from 'axios';
-
-export interface IBeer {
-  id: number;
-  name: string;
-  description: string;
-  first_brewed: Date;
-  abv: number;
-}
+import { IBeer } from 'hooks/types';
 
 interface State {
   data?: IBeer[];
   error?: Error;
 }
 
-type Cache = { [url: string]: Object };
+type Cache = { [url: string]: IBeer[] };
 
-type Actions = { type: 'loading' } | { type: 'fetched'; payload: IBeer[] | any } | { type: 'error'; payload: Error };
+type Action = { type: 'loading' } | { type: 'fetched'; payload: IBeer[] } | { type: 'error'; payload: Error };
 
-function useFetch(url?: string, options?: RequestInit): State {
+function useFetch(url?: string, options?: RequestInit) {
   const cache = useRef<Cache>({});
 
   // Used to prevent state update if the component is unmounted
@@ -30,7 +21,7 @@ function useFetch(url?: string, options?: RequestInit): State {
     data: undefined,
   };
 
-  const fetchReducer = (state: State, action: Actions): State => {
+  const fetchReducer = (state: State, action: Action): State => {
     switch (action.type) {
       case 'loading':
         return { ...initialState };
@@ -62,11 +53,12 @@ function useFetch(url?: string, options?: RequestInit): State {
           throw new Error(response.statusText);
         }
 
-        const data = (await response.json()) as IBeer;
+        const data = (await response.json()) as IBeer[];
         cache.current[url] = data;
         if (cancelRequest.current) return;
-
-        dispatch({ type: 'fetched', payload: data });
+        setTimeout(() => {
+          dispatch({ type: 'fetched', payload: data });
+        }, 1000);
       } catch (error) {
         if (cancelRequest.current) return;
 

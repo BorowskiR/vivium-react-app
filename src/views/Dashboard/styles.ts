@@ -6,5 +6,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginTop: 100,
       [theme.breakpoints.up('sm')]: {},
     },
+    indicator: {
+      position: 'absolute',
+      left: '50%',
+      top: '10%',
+      transform: 'translateX(-50%)',
+    },
   })
 );

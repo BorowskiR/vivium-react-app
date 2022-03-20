@@ -2,20 +2,22 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Login from './Login/Login';
 import Dashboard from './Dashboard/Dashboard';
-import MissingPage from './404';
 import BeerDetails from './BeerDetails';
 import { useAuth } from 'hooks/useAuth';
+import { useError } from 'hooks/useError';
+import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
+import Layout from 'components/templates/Layout';
 
 const AuthenticatedApp = () => {
   return (
     <>
-      <Routes>
-        {/* protected route */}
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/beers/:id" element={<BeerDetails />} />
-
-        {/* <Route path="*" element={<MissingPage />} /> */}
-      </Routes>
+      <Layout>
+        <Routes>
+          {/* protected route */}
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/beers/:id" element={<BeerDetails />} />
+        </Routes>
+      </Layout>
     </>
   );
 };
@@ -28,7 +30,7 @@ const UnauthenticatedApp = () => {
         <Route path="sign-in" element={<Login />} />
 
         {/* catch all */}
-        <Route path="*" element={<MissingPage />} />
+        {/* <Route path="*" element={<MissingPage />} /> */}
       </Routes>
     </>
   );
@@ -36,8 +38,13 @@ const UnauthenticatedApp = () => {
 
 const Root = () => {
   const auth = useAuth();
-
-  return auth.user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+  const { error } = useError();
+  return (
+    <>
+      {error ? <ErrorMessage message={error} /> : null}
+      {auth.user ? <AuthenticatedApp /> : <UnauthenticatedApp />};
+    </>
+  );
 };
 
 export default Root;

@@ -14,23 +14,10 @@ const SearchBar = () => {
     } else {
       clearFilter();
     }
-
-    // (async () => {
-    //   try {
-    //     const { data } = await axios.get(`https://api.punkapi.com/v2/beers?beer_name=${inputValue}`);
-    //     const filteredBeers = data.filter(({ name }) => name);
-    //     filterByName(inputValue);
-
-    //     console.log('przefiltrowana', filteredBeers);
-    //     return data;
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // })();
   }, [inputValue]);
 
   return (
-    <div>
+    <div className={classes.wrapper}>
       <FormLabel>Choose beer:</FormLabel>
       <div style={comboboxStyles}>
         <Input placeholder="Beers" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />

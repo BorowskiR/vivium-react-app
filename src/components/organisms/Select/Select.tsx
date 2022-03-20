@@ -8,10 +8,12 @@ import { BeersContext } from 'providers/BeersProvider';
 
 const SelectByPower = () => {
   const [selectedOption, setSelectedOption] = useState<Number | string>('');
-  const { filterByPower } = useContext(BeersContext);
-
+  const { filterByPower, clearFilter } = useContext(BeersContext);
+  console.log(selectedOption);
   useEffect(() => {
-    if (!selectedOption) return;
+    if (!selectedOption) {
+      clearFilter();
+    }
 
     (async () => {
       if (selectedOption === 1) {

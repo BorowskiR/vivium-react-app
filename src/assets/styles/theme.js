@@ -1,6 +1,6 @@
-import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
+import { createTheme } from '@mui/material/styles';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#FDAE4B',

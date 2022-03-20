@@ -10,23 +10,29 @@ enum BeersActions {
   FILTER_BY_BREWED_DATE = 'FILTER_BY_BREWED_DATE',
 }
 
-type Actions = {
-  type: BeersActions;
-  payload: IBeer[] | any;
-};
+type Actions =
+  | {
+      type: BeersActions;
+      payload: IBeer[] | any;
+    }
+  | {
+      type: BeersActions.CLEAR_FILTER;
+    };
 
 type State = {
   beers: IBeer[];
+  filtered: IBeer[];
   error: null | string;
 };
 
 type ContextType = {
   state: {
     beers: IBeer[];
+    filtered: IBeer[];
     error: null | string;
   };
   filterByName: (text: string) => void;
-  clearFilter: (data: IBeer) => void;
+  clearFilter: () => void;
   filterByPower: (data: IBeer[]) => void;
   filterByBrewedDate: (data: IBeer[]) => void;
 };
@@ -34,6 +40,7 @@ type ContextType = {
 export const BeersContext = React.createContext<ContextType>({
   state: {
     beers: [],
+    filtered: [],
     error: null,
   },
   filterByName: () => {},
@@ -50,16 +57,17 @@ const BeersReducer = (state: State, action: Actions): State => {
       return {
         ...state,
         beers: action.payload,
+        filtered: action.payload,
       };
     case BeersActions.FILTER_BY_NAME:
       console.log(action.type);
       return {
         ...state,
-        beers: state.beers.filter((beer: IBeer) => {
+        filtered: state.beers.filter((beer: IBeer) => {
           const regex = new RegExp(`${action.payload}`, 'ig');
           return beer.name.match(regex);
         }),
-        error: state.beers.length === 0 ? 'No beer found' : '',
+        error: state.filtered.length ? null : 'No beer found',
       };
     case BeersActions.FILTER_BY_POWER:
       return {
@@ -70,6 +78,7 @@ const BeersReducer = (state: State, action: Actions): State => {
     case BeersActions.CLEAR_FILTER:
       return {
         ...state,
+        filtered: [],
       };
     case BeersActions.FILTER_BY_BREWED_DATE: {
       return {
@@ -85,6 +94,7 @@ const BeersReducer = (state: State, action: Actions): State => {
 
 const initialState: State = {
   beers: [],
+  filtered: [],
   error: '',
 };
 
@@ -110,7 +120,7 @@ const BeersProvider: FC = ({ children }) => {
   };
 
   const clearFilter = () => {
-    dispatch({ type: BeersActions.INITIAL, payload: data });
+    dispatch({ type: BeersActions.CLEAR_FILTER });
   };
 
   return <BeersContext.Provider value={{ filterByName, filterByPower, clearFilter, filterByBrewedDate, state }}>{children}</BeersContext.Provider>;

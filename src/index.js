@@ -8,17 +8,20 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from 'assets/styles/theme';
 import BeersProvider from 'providers/BeersProvider';
+import { ErrorProvider } from 'hooks/useError';
 
 worker.start().then(() => {
   ReactDOM.render(
     <React.StrictMode>
       <Router>
         <ThemeProvider theme={theme}>
-          <AuthProvider>
-            <BeersProvider>
-              <Root />
-            </BeersProvider>
-          </AuthProvider>
+          <ErrorProvider>
+            <AuthProvider>
+              <BeersProvider>
+                <Root />
+              </BeersProvider>
+            </AuthProvider>
+          </ErrorProvider>
         </ThemeProvider>
       </Router>
     </React.StrictMode>,
