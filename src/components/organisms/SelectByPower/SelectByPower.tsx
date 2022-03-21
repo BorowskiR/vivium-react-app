@@ -51,7 +51,7 @@ const SelectByPower = () => {
   return (
     <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
       <InputLabel id="select">Select by power</InputLabel>
-      <Select id="select" value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+      <Select sx={{ color: 'text.primary' }} id="select" value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
         <MenuItem value={''}>
           <em>None</em>
         </MenuItem>

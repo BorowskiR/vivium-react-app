@@ -18,7 +18,7 @@ const Dashboard: FC = () => {
     state: { filtered, filterError },
   } = useContext(BeersContext);
 
-  if (error) return <ErrorMessage />;
+  if (error) return <ErrorMessage message={error} />;
   if (!data) return <CircularProgress className={classes.indicator} />;
 
   return (

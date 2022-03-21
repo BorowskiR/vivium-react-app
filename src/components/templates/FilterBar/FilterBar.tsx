@@ -1,18 +1,21 @@
 import React from 'react';
 import SearchBar from 'components/organisms/SearchBar/SearchBar';
 import Select from 'components/organisms/SelectByPower/SelectByPower';
+import { Paper } from '@material-ui/core';
 import SelectBrewedBefore from 'components/organisms/SelectByDate/SelectBrewedBefore';
 import { useStyles } from './styles';
+import { useColorMode } from 'providers/ColorModeProvider';
 
 const FilterBar = () => {
-  const classes = useStyles();
-
+  const { mode } = useColorMode();
+  const classes = useStyles(mode);
+  console.log(mode);
   return (
-    <div className={classes.wrapper}>
+    <Paper className={classes.wrapper}>
       <SearchBar />
       <Select />
       <SelectBrewedBefore />
-    </div>
+    </Paper>
   );
 };
 

@@ -5,16 +5,17 @@ import { worker } from './mocks/browser';
 import 'assets/styles/globals.css';
 import { AuthProvider } from 'hooks/useAuth';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/styles';
-import theme from 'assets/styles/theme';
 import BeersProvider from 'providers/BeersProvider';
 import { ErrorProvider } from 'hooks/useError';
+import { ColorModeProvider } from 'providers/ColorModeProvider';
+import CssBaseline from '@mui/material/CssBaseline';
 
 worker.start().then(() => {
   ReactDOM.render(
     <React.StrictMode>
       <Router>
-        <ThemeProvider theme={theme}>
+        <ColorModeProvider>
+          <CssBaseline />
           <ErrorProvider>
             <AuthProvider>
               <BeersProvider>
@@ -22,7 +23,7 @@ worker.start().then(() => {
               </BeersProvider>
             </AuthProvider>
           </ErrorProvider>
-        </ThemeProvider>
+        </ColorModeProvider>
       </Router>
     </React.StrictMode>,
     document.getElementById('root')
