@@ -10,7 +10,22 @@ const BeersList: FC = () => {
   } = useContext(BeersContext);
 
   return (
-    <Grid>
+    <Grid container>
+      <Grid item container>
+        <Grid item sm={2}>
+          Name
+        </Grid>
+        <Grid item sm={3}>
+          Description
+        </Grid>
+        <Grid item sm={3}>
+          Alcohol volume
+        </Grid>
+        <Grid item sm={2}>
+          First brewed date
+        </Grid>
+      </Grid>
+
       {filtered.length !== 0
         ? filtered?.map((beer: IBeer) => {
             return (

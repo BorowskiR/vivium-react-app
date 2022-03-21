@@ -1,5 +1,5 @@
 import React from 'react';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useStyles } from './styles';
 import { useAuth } from 'hooks/useAuth';
 import Logo from 'assets/images/beers.png';
@@ -16,12 +16,12 @@ const SideBar = () => {
   const auth = useAuth();
 
   return (
-    <div className={theme.palette.mode === 'dark' ? classes.wrapperDark : classes.wrapperLight}>
+    <div className={classes.wrapper}>
       <img src={Logo} alt="logo" />
       <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
-      <ExitToAppIcon onClick={auth.signOut} className={classes.logoutBtn} />
+      <ExitToAppIcon style={{ color: theme.palette.mode === 'dark' ? '#fff' : '#000' }} onClick={auth.signOut} className={classes.logoutBtn} />
     </div>
   );
 };

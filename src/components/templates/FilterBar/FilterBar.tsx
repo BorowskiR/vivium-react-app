@@ -9,7 +9,7 @@ import { useColorMode } from 'providers/ColorModeProvider';
 const FilterBar = () => {
   const { mode } = useColorMode();
   const classes = useStyles(mode);
-  console.log(mode);
+
   return (
     <Paper className={classes.wrapper}>
       <SearchBar />

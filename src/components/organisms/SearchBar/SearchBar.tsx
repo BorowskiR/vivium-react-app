@@ -18,8 +18,8 @@ const SearchBar = () => {
   }, [inputValue]);
 
   return (
-    <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-      <TextField label="Type beer name" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+    <FormControl sx={{ m: 1, minWidth: 200 }}>
+      <TextField variant="standard" label="Search By Name" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
     </FormControl>
   );
 };

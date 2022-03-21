@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import SideBar from 'components/molecules/SideBar/Sidebar';
+import Navigation from 'components/molecules/Navigation/Navigation';
 // import { Outlet } from 'react-router-dom';
 
 const Layout: FC = ({ children }) => {
   return (
     <>
-      <SideBar />
+      <Navigation />
       {children}
       {/* <Outlet /> */}
     </>

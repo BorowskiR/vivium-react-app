@@ -1,5 +1,6 @@
 import React, { FC, useState, useMemo, useContext } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { deepOrange, grey } from '@mui/material/colors';
 
 interface IColorModeContext {
   toggleColorMode: () => void;
@@ -26,12 +27,41 @@ export const ColorModeProvider: FC = ({ children }) => {
       createTheme({
         palette: {
           mode,
-          primary: {
-            main: '#5cbc63',
-            contrastText: '#fff',
-          },
-          secondary: {
-            main: '#000',
+          ...(mode === 'light'
+            ? {
+                // palette values for light mode
+                primary: grey,
+                divider: grey[200],
+                background: {
+                  default: grey[200],
+                  paper: grey[200],
+                },
+                text: {
+                  primary: grey[800],
+                  secondary: grey[900],
+                },
+              }
+            : {
+                // palette values for dark mode
+                primary: deepOrange,
+                divider: deepOrange[700],
+                background: {
+                  default: grey[900],
+                  paper: grey[900],
+                },
+                text: {
+                  primary: '#fff',
+                  secondary: grey[500],
+                },
+              }),
+        },
+        components: {
+          MuiIconButton: {
+            styleOverrides: {
+              sizeMedium: {
+                color: mode === 'light' ? grey[500] : grey[500],
+              },
+            },
           },
         },
       }),

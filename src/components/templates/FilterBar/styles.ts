@@ -1,8 +1,12 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(() => ({
-  wrapper: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-  },
-}));
+export const useStyles = makeStyles(() =>
+  createStyles({
+    wrapper: {
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      margin: 20,
+      background: '#ebebeb',
+    },
+  })
+);
