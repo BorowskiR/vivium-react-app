@@ -9,7 +9,7 @@ export const useStyles = makeStyles<Theme, Props>((theme) =>
     wrapper: {
       display: 'flex',
       justifyContent: 'space-evenly',
-      margin: 20,
+      margin: '20px 0 50px',
       background: ({ mode }) => (mode === 'light' ? '#c5c5c5' : '#484848'),
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',

@@ -14,19 +14,19 @@ const BeersList: FC = () => {
 
   return (
     <Grid container className={classes.wrapper}>
-      <Grid item container>
+      <Grid item container className={classes.tableHeader}>
         <Grid item sm={1}></Grid>
         <Grid item sm={2}>
           <Typography>Name</Typography>
         </Grid>
         <Grid item sm={3}>
-          Description
+          <Typography>Description</Typography>
         </Grid>
         <Grid item sm={3}>
-          Alcohol volume
+          <Typography>Alcohol volume</Typography>
         </Grid>
         <Grid item sm={2}>
-          First brewed date
+          <Typography>First brewed date</Typography>
         </Grid>
       </Grid>
 
