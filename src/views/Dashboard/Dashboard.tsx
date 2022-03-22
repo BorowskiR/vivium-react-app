@@ -6,12 +6,11 @@ import BeersList from 'components/molecules/BeerList/BeersList';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 import { Container, Alert, CircularProgress } from '@mui/material/';
 import { useStyles } from './styles';
-
-const url = `https://api.punkapi.com/v2/beers/`;
+import { BASE_URL } from 'components/config';
 
 const Dashboard: FC = () => {
   const classes = useStyles();
-  const { error, data } = useFetch(url);
+  const { error, data } = useFetch(BASE_URL);
   const {
     state: { filtered, filterError },
   } = useContext(BeersContext);

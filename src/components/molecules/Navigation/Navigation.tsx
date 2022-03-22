@@ -11,14 +11,15 @@ import { useColorMode } from 'providers/ColorModeProvider';
 
 const SideBar = () => {
   const theme = useTheme();
-  const colorMode = useColorMode();
-  const classes = useStyles(theme);
+
+  const { mode, toggleColorMode } = useColorMode();
+  const classes = useStyles({ mode });
   const auth = useAuth();
 
   return (
     <div className={classes.wrapper}>
       <img src={Logo} alt="logo" />
-      <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+      <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit">
         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
       <ExitToAppIcon style={{ color: theme.palette.mode === 'dark' ? '#fff' : '#000' }} onClick={auth.signOut} className={classes.logoutBtn} />

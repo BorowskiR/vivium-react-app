@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useReducer } from 'react';
 import useFetch from 'hooks/useFetch';
 import { IBeer } from 'providers/types';
+import { BASE_URL } from 'components/config';
 
 enum BeersActions {
   INITIAL = 'INITIAL',
@@ -48,8 +49,6 @@ export const BeersContext = React.createContext<ContextType>({
   clearFilter: () => {},
   filterByBrewedDate: () => {},
 });
-
-const BASIC_URL = `https://api.punkapi.com/v2/beers/`;
 
 const BeersReducer = (state: State, action: Actions): State => {
   switch (action.type) {
@@ -99,10 +98,10 @@ const initialState: State = {
 };
 
 const BeersProvider: FC = ({ children }) => {
-  const { data } = useFetch(BASIC_URL);
+  const { data } = useFetch(BASE_URL);
 
   const [state, dispatch] = useReducer(BeersReducer, initialState);
-  console.log(state);
+
   useEffect(() => {
     dispatch({ type: BeersActions.INITIAL, payload: data });
   }, [data]);

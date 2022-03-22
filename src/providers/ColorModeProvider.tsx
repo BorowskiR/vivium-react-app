@@ -59,7 +59,7 @@ export const ColorModeProvider: FC = ({ children }) => {
           MuiIconButton: {
             styleOverrides: {
               sizeMedium: {
-                color: mode === 'light' ? grey[500] : grey[500],
+                color: mode === 'light' ? '#5a5656' : '#fff',
               },
             },
           },

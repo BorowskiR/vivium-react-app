@@ -8,6 +8,7 @@ export default makeStyles(() =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+      overflowX: 'hidden',
     },
   })
 );

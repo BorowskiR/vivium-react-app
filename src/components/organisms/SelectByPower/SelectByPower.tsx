@@ -1,51 +1,51 @@
 import React, { useState, useContext, useEffect } from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import axios from 'axios';
 import { BeersContext } from 'providers/BeersProvider';
+import { useError } from 'hooks/useError';
+import { BASE_URL } from 'components/config';
+import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
 const SelectByPower = () => {
   const [selectedOption, setSelectedOption] = useState<Number | string>('');
   const { filterByPower, clearFilter } = useContext(BeersContext);
+  const { dispatchError } = useError();
 
   useEffect(() => {
-    if (!selectedOption) {
+    if (!selectedOption || selectedOption === '') {
       clearFilter();
     }
 
     (async () => {
       if (selectedOption === 1) {
         try {
-          const { data } = await axios.get(`https://api.punkapi.com/v2/beers?abv_gt=1&abv_lt=4`);
-          console.log(data);
+          const { data } = await axios.get(`${BASE_URL}?abv_gt=1&abv_lt=4`);
           filterByPower(data);
         } catch (e) {
-          console.log(e);
+          dispatchError('Something went wrong');
         }
       }
 
       if (selectedOption === 2) {
         try {
-          const { data } = await axios.get(`https://api.punkapi.com/v2/beers?abv_gt=4&abv_lt=10`);
+          const { data } = await axios.get(`${BASE_URL}?abv_gt=4&abv_lt=10`);
 
           filterByPower(data);
         } catch (e) {
-          console.log(e);
+          dispatchError('Something went wrong');
         }
       }
 
       if (selectedOption === 3) {
         try {
-          const { data } = await axios.get(`https://api.punkapi.com/v2/beers?abv_gt=10`);
+          const { data } = await axios.get(`${BASE_URL}?abv_gt=10`);
 
           filterByPower(data);
         } catch (e) {
-          console.log(e);
+          dispatchError('Something went wrong');
         }
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
 
   return (

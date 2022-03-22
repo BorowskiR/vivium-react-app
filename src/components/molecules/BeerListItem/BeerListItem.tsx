@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Grid, Typography, Button } from '@material-ui/core';
+import { useColorMode } from 'providers/ColorModeProvider';
 import { IBeer } from 'hooks/types';
 import { useStyles } from './styles';
 
 const BeerListItem = ({ id, name, image_url, description, first_brewed, abv }: IBeer) => {
   const [readMore, setReadMore] = useState(false);
-  const classes = useStyles();
+  const { mode } = useColorMode();
+  const classes = useStyles({ mode });
+  console.log(description.length > 100);
 
   const linkName = readMore ? 'Read Less ' : 'Read More';
   return (
@@ -20,14 +23,14 @@ const BeerListItem = ({ id, name, image_url, description, first_brewed, abv }: I
         <Typography className={classes.description}>
           {readMore !== true ? description.substring(0, 100) : ''}
           {readMore === true ? description : ''}
-          ...
+
           <Button
             className={classes.readMore_button}
             onClick={() => {
               setReadMore(!readMore);
             }}
           >
-            {description.length > 100 ? linkName : null}
+            {description.length > 100 ? linkName : ''}
           </Button>
         </Typography>
       </Grid>

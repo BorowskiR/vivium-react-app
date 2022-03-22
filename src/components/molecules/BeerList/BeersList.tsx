@@ -1,20 +1,23 @@
 import React, { FC, useContext } from 'react';
 import { IBeer } from 'providers/types';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { BeersContext } from 'providers/BeersProvider';
 import BeerListItem from '../BeerListItem/BeerListItem';
 
+import { useStyles } from './styles';
+
 const BeersList: FC = () => {
+  const classes = useStyles();
   const {
     state: { filtered, beers },
   } = useContext(BeersContext);
 
   return (
-    <Grid container>
+    <Grid container className={classes.wrapper}>
       <Grid item container>
         <Grid item sm={1}></Grid>
         <Grid item sm={2}>
-          Name
+          <Typography>Name</Typography>
         </Grid>
         <Grid item sm={3}>
           Description
@@ -35,7 +38,7 @@ const BeersList: FC = () => {
                 key={beer.id}
                 image_url={beer.image_url}
                 name={beer.name}
-                description={beer.description.length > 100 ? beer.description.substring(0, 100) : beer.description}
+                description={beer.description}
                 first_brewed={beer.first_brewed}
                 abv={beer.abv}
               />

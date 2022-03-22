@@ -1,6 +1,10 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles((theme: Theme) =>
+interface Props {
+  mode: string;
+}
+
+export const useStyles = makeStyles<Theme, Props>((theme) =>
   createStyles({
     wrapper: {
       position: 'fixed',
@@ -8,7 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       bottom: 0,
       left: 0,
       width: 60,
-      background: 'background.default',
+      background: ({ mode }) => (mode === 'light' ? '#c5c5c5' : '#212121'),
       display: 'flex',
       padding: '10px',
       flexDirection: 'column',
@@ -23,6 +27,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         width: '100vw',
         height: '70px',
         padding: '10px 50px',
+
         '& img': {
           width: '100px',
         },
