@@ -5,6 +5,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { BeersContext } from 'providers/BeersProvider';
+import { BASE_URL } from 'components/config';
 
 const SelectBrewedBefore = () => {
   const [value, setValue] = useState<Date | null>(null);
@@ -19,7 +20,8 @@ const SelectBrewedBefore = () => {
 
     (async () => {
       try {
-        const { data } = await axios.get(`https://api.punkapi.com/v2/beers?brewed_before=${month}-${year}`);
+        const { data } = await axios.get(`${BASE_URL}?brewed_before=${month}-${year}`);
+        console.log(data);
         filterByBrewedDate(data);
       } catch (e) {
         console.log(e);
@@ -28,18 +30,20 @@ const SelectBrewedBefore = () => {
   }, [value]);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-        inputFormat="yyyy-MM"
-        views={['year', 'month']}
-        label="Brewed before"
-        minDate={new Date('2000-03-01')}
-        maxDate={new Date('2016-12-01')}
-        value={value}
-        onChange={setValue}
-        renderInput={(params) => <TextField variant="standard" {...params} helperText={null} />}
-      />
-    </LocalizationProvider>
+    <div style={{ marginTop: '8px' }}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          inputFormat="yyyy-MM"
+          views={['year', 'month']}
+          label="Brewed before"
+          minDate={new Date('2000-03-01')}
+          maxDate={new Date('2016-12-01')}
+          value={value}
+          onChange={setValue}
+          renderInput={(params) => <TextField variant="standard" {...params} helperText={null} />}
+        />
+      </LocalizationProvider>
+    </div>
   );
 };
 

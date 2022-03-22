@@ -2,10 +2,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
-      paddingTop: 20,
+    wrapper: {
       marginTop: 100,
-      // background: 'background.default',
       [theme.breakpoints.up('sm')]: {},
     },
     indicator: {
@@ -13,6 +11,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       left: '50%',
       top: '10%',
       transform: 'translateX(-50%)',
+    },
+    bedge: {
+      width: '200px',
+      margin: '20px auto',
     },
   })
 );

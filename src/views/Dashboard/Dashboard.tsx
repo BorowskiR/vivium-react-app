@@ -1,13 +1,11 @@
 import React, { FC, useContext } from 'react';
 import useFetch from 'hooks/useFetch';
-import { Container, Paper, Box } from '@material-ui/core';
-import Alert from '@mui/material/Alert';
-import { useStyles } from './styles';
-import FilterBar from 'components/templates/FilterBar/FilterBar';
 import { BeersContext } from 'providers/BeersProvider';
-import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
-import CircularProgress from '@mui/material/CircularProgress';
+import FilterBar from 'components/templates/FilterBar/FilterBar';
 import BeersList from 'components/molecules/BeerList/BeersList';
+import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
+import { Container, Alert, CircularProgress } from '@mui/material/';
+import { useStyles } from './styles';
 
 const url = `https://api.punkapi.com/v2/beers/`;
 
@@ -22,12 +20,14 @@ const Dashboard: FC = () => {
   if (!data) return <CircularProgress className={classes.indicator} />;
 
   return (
-    <Container>
-      <Paper elevation={3} className={classes.paper}>
-        <FilterBar />
-        <Box>{filtered?.length === 0 && filterError !== null ? <Alert severity="error">{filterError}</Alert> : null}</Box>
-        <BeersList />
-      </Paper>
+    <Container className={classes.wrapper}>
+      <FilterBar />
+      {filtered?.length === 0 && filterError !== null ? (
+        <Alert className={classes.bedge} severity="error">
+          {filterError}
+        </Alert>
+      ) : null}
+      <BeersList />
     </Container>
   );
 };

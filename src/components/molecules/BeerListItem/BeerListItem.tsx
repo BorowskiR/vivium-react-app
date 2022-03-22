@@ -1,24 +1,41 @@
-import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Grid, Typography, Button } from '@material-ui/core';
 import { IBeer } from 'hooks/types';
+import { useStyles } from './styles';
 
 const BeerListItem = ({ id, name, image_url, description, first_brewed, abv }: IBeer) => {
+  const [readMore, setReadMore] = useState(false);
+  const classes = useStyles();
+
+  const linkName = readMore ? 'Read Less ' : 'Read More';
   return (
-    <Grid key={id} container>
-      <Grid item>
-        <img style={{ objectFit: 'contain' }} width="100px" height="100px" src={image_url} alt="beer image" />
+    <Grid key={id} container className={classes.wrapper}>
+      <Grid item sm={1}>
+        <img style={{ objectFit: 'contain' }} width="100px" height="100px" src={image_url} alt="beer" />
       </Grid>
       <Grid item sm={2}>
         <Typography>{name}</Typography>
       </Grid>
       <Grid item sm={3}>
-        <p>{description}</p>
+        <Typography className={classes.description}>
+          {readMore !== true ? description.substring(0, 100) : ''}
+          {readMore === true ? description : ''}
+          ...
+          <Button
+            className={classes.readMore_button}
+            onClick={() => {
+              setReadMore(!readMore);
+            }}
+          >
+            {description.length > 100 ? linkName : null}
+          </Button>
+        </Typography>
       </Grid>
       <Grid item sm={3}>
-        <div>{abv}% alcohol volume</div>
+        <Typography>{abv}% </Typography>
       </Grid>
       <Grid item sm={2}>
-        <div>first brewed {first_brewed}</div>
+        <Typography>{first_brewed}</Typography>
       </Grid>
     </Grid>
   );

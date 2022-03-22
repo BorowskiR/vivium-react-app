@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Grid } from '@material-ui/core';
-import Input from 'components/atoms/Input/Input';
 import { SchemaOf, string, object } from 'yup';
-import useStyles from './styles';
 import { useAuth } from 'hooks/useAuth';
+import Input from 'components/atoms/Input/Input';
+import { Button, Grid } from '@material-ui/core';
+import useStyles from './styles';
 
 interface IFormInputs {
   login: string;

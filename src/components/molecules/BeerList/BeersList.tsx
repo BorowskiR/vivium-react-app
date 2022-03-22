@@ -12,6 +12,7 @@ const BeersList: FC = () => {
   return (
     <Grid container>
       <Grid item container>
+        <Grid item sm={1}></Grid>
         <Grid item sm={2}>
           Name
         </Grid>
@@ -34,7 +35,7 @@ const BeersList: FC = () => {
                 key={beer.id}
                 image_url={beer.image_url}
                 name={beer.name}
-                description={beer.description}
+                description={beer.description.length > 100 ? beer.description.substring(0, 100) : beer.description}
                 first_brewed={beer.first_brewed}
                 abv={beer.abv}
               />
