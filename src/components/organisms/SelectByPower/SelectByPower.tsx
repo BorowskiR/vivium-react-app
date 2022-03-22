@@ -1,8 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
+
 import { BeersContext } from 'providers/BeersProvider';
 import { useError } from 'hooks/useError';
-import { BASE_URL } from 'components/config';
+
+import { BASE_URL } from 'config';
+
 import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
 const SelectByPower = () => {

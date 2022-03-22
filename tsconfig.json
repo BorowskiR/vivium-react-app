@@ -21,6 +21,7 @@
     "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
     "rootDir": ".",
     "baseUrl": "src",
+    "typeRoots": ["node_modules/@types", "src/types"],
     "paths": {
       //alias pathing for absolute paths
       "@src/*": ["src/*"],

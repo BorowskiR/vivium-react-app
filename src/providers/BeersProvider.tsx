@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useReducer } from 'react';
 import useFetch from 'hooks/useFetch';
 import { IBeer } from 'providers/types';
-import { BASE_URL } from 'components/config';
+import { BASE_URL } from 'config';
 
 enum BeersActions {
   INITIAL = 'INITIAL',

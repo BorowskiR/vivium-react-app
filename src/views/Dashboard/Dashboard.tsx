@@ -6,7 +6,7 @@ import BeersList from 'components/molecules/BeerList/BeersList';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 import { Container, Alert, CircularProgress } from '@mui/material/';
 import { useStyles } from './styles';
-import { BASE_URL } from 'components/config';
+import { BASE_URL } from 'config';
 
 const Dashboard: FC = () => {
   const classes = useStyles();

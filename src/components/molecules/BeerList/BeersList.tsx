@@ -1,8 +1,9 @@
 import React, { FC, useContext } from 'react';
 import { IBeer } from 'providers/types';
-import { Grid, Typography } from '@material-ui/core';
 import { BeersContext } from 'providers/BeersProvider';
 import BeerListItem from '../BeerListItem/BeerListItem';
+
+import { Grid, Typography } from '@material-ui/core';
 
 import { useStyles } from './styles';
 

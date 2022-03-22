@@ -8,7 +8,6 @@ const BeerListItem = ({ id, name, image_url, description, first_brewed, abv }: I
   const [readMore, setReadMore] = useState(false);
   const { mode } = useColorMode();
   const classes = useStyles({ mode });
-  console.log(description.length > 100);
 
   const linkName = readMore ? 'Read Less ' : 'Read More';
   return (

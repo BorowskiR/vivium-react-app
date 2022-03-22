@@ -1,9 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField } from '@material-ui/core';
-import { useStyles } from './styles';
 import { BeersContext } from 'providers/BeersProvider';
-import FormControl from '@mui/material/FormControl';
 import { useColorMode } from 'providers/ColorModeProvider';
+
+import { TextField } from '@material-ui/core';
+import FormControl from '@mui/material/FormControl';
+
+import { useStyles } from './styles';
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState('');

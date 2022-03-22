@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
+
 import { BeersContext } from 'providers/BeersProvider';
 import { useError } from 'hooks/useError';
-import { BASE_URL } from 'components/config';
+
+import { BASE_URL } from 'config';
+
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';

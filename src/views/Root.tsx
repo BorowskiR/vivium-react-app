@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Login from './Login/Login';
 import Dashboard from './Dashboard/Dashboard';
-import BeerDetails from './BeerDetails';
 import { useAuth } from 'hooks/useAuth';
 import { useError } from 'hooks/useError';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
@@ -15,7 +14,6 @@ const AuthenticatedApp = () => {
         <Routes>
           {/* protected route */}
           <Route path="/" element={<Dashboard />} />
-          <Route path="/beers/:id" element={<BeerDetails />} />
         </Routes>
       </Layout>
     </>
